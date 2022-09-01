@@ -1,0 +1,9 @@
+﻿@using System.Linq
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <h1 class="display-4">@(User.Identity.Name ?? "you ar not authorized")</h1>
+</div>

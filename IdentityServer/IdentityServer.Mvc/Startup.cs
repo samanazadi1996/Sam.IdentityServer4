@@ -28,7 +28,6 @@ namespace IdentityServer.Mvc
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var identityServerConfigurations = Configuration.GetSection(nameof(IdentityServerConfigurations)).Get<IdentityServerConfigurations>();
             services.AddDbContext<ApplicationDbContext>(o => o.UseSqlServer(Configuration.GetConnectionString("Default")));
 
             services.AddIdentity<IdentityUser, IdentityRole>()
@@ -37,9 +36,10 @@ namespace IdentityServer.Mvc
             services.AddIdentityServer()
                 .AddAspNetIdentity<IdentityUser>()
                 .AddDeveloperSigningCredential()
-                .AddInMemoryApiScopes(identityServerConfigurations.GetApiScopes())
-                .AddInMemoryClients(identityServerConfigurations.GetClients())
-                .AddInMemoryApiResources(identityServerConfigurations.GetApiResources());
+                .AddInMemoryIdentityResources(IdentityServerConfigurations.GetIdentityResources())
+                .AddInMemoryApiScopes(IdentityServerConfigurations.GetApiScopes())
+                .AddInMemoryClients(IdentityServerConfigurations.GetClients())
+                .AddInMemoryApiResources(IdentityServerConfigurations.GetApiResources());
 
             services.AddTransient<DataSeeder>();
             services.AddControllersWithViews();
