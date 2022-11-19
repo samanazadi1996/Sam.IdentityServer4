@@ -28,12 +28,28 @@ namespace IdentityServer.Mvc.Infrastracture.Configurations
 
             return new List<ApiScope>(){
                 new ApiScope("Services.WebApi", "Services.WebApi", claims),
-                new ApiScope("Services.WebMvc", "Services.WebMvc", claims)
+                new ApiScope("Services.WebMvc", "Services.WebMvc", claims),
+                new ApiScope("Services.Angular", "Services.Angular", claims)
             };
         }
         public static IEnumerable<Client> GetClients()
         {
             return new List<Client>(){
+                new Client
+                {
+                    ClientId = "Services.Angular",
+                    ClientName = "Services.Angular",
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequireClientSecret = false,
+                    RequirePkce = true,
+                    RedirectUris ={ "http://localhost:4200/"},
+                    AllowedCorsOrigins = { "http://localhost:4200"},
+                    AllowedScopes = {
+                        "Services.Angular",
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile
+                    }
+                },
                 new Client
                 {
                     ClientId = "Services.WebApi",
@@ -68,6 +84,7 @@ namespace IdentityServer.Mvc.Infrastracture.Configurations
             return new List<ApiResource>(){
                 new ApiResource("Services.WebApi", "Services.WebApi"){ Scopes = {"Services.WebApi" } },
                 new ApiResource("Services.WebMvc", "Services.WebMvc"){ Scopes = { "Services.WebMvc" } },
+                new ApiResource("Services.Angular", "Services.Angular"){ Scopes = { "Services.Angular" } },
 
             };
         }
