@@ -37,7 +37,7 @@ namespace IdentityServer.Data.Seed
                     EmailConfirmed = true,
 
                 };
-                userManager.CreateAsync(user, "Pa$$word").Wait();
+                userManager.CreateAsync(user, "Pa$$word123").Wait();
                 userManager.AddToRoleAsync(user, roleNames[0]).Wait();
                 userManager.AddClaimAsync(user, new Claim("Permission", "v1/User/AddClaim")).Wait();
             }
